@@ -1,0 +1,1 @@
+Full stack Spotify clone using React,Stripe,Supabase,PostgreSQL and Tailwind.
