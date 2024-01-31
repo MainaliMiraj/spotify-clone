@@ -11,7 +11,7 @@ const ModalProvider = () => {
   if (!isMounted) return null;
   return (
     <>
-      <Modal />
+      <Modal title="Modal test" description="Description Test" isOpen onChange={()=>{}}>Test Children</Modal>
     </>
   );
 };
