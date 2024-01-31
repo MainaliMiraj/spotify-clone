@@ -1,7 +1,7 @@
 "use client";
 
 import { retry } from "@reduxjs/toolkit/query";
-import { MyUserContextProvider } from "./useUser";
+import { MyUserContextProvider } from "../hooks/useUser";
 
 interface UserProviderProps {
   children: React.ReactNode;
