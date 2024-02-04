@@ -1,14 +1,20 @@
 "use client";
+import uniqid from "uniqid";
 import { useState } from "react";
+import { useUser } from "@/hooks/useUser";
+import toast from "react-hot-toast";
 import useUploadModal from "@/hooks/useUploadModal";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Modal from "./Modal";
 import Input from "./Input";
 import Button from "./Button";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 const UploadModal = () => {
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const uploadModal = useUploadModal();
+  const { user } = useUser();
+  const supabaseClient = useSupabaseClient();
   const { register, handleSubmit, reset } = useForm<FieldValues>({
     defaultValues: {
       author: "",
@@ -24,6 +30,28 @@ const UploadModal = () => {
     }
   };
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+    try {
+      setIsLoading(true);
+      const imageFile = values.image?.[0];
+      const songFile = values.song?.[0];
+
+      if (!imageFile || !songFile || !user) {
+        toast.error("Missing fields");
+        return;
+      }
+
+      const uniqueID = uniqid();
+      const { data: songData, error: songError } = await supabaseClient.storage
+        .from("songs")
+        .upload(`song-${values.title}-${uniqueID}`, songFile, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+    } catch (err) {
+      toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
     //upload to supabase
   };
   return (
