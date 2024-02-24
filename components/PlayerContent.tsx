@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Song } from "@/types";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
-import { AiFillBackward, AiFillForward } from "react-icons/ai";
+import { AiFillStepBackward, AiFillStepForward} from "react-icons/ai";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 
 import MediaItem from "./MediaItem";
@@ -96,25 +96,25 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
       </div>
       <div className="flex md:hidden col-auto w-full justify-end items-center">
         <div
-          onClick={() => {}}
+          onClick={handlePlay}
           className="h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer"
         >
           <Icon size={30} className="text-black" />
         </div>
       </div>
       <div className="hidden h-full md:flex justify-center items-center w-full max-w-[720px] gap-x-6">
-        <AiFillBackward
+        <AiFillStepBackward
           size={30}
           className="text-neutral-400 cursor-pointer hover:text-white transition"
           onClick={onPlayPrevious}
         />
         <div
-          onClick={() => {}}
+          onClick={handlePlay}
           className="flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer"
         >
           <Icon className="text-black" size={30} />
         </div>
-        <AiFillForward
+        <AiFillStepForward
           onClick={onPlayNext}
           size={30}
           className="text-neutral-400 cursor-pointer hover:text-white transition"
